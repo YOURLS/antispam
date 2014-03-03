@@ -77,7 +77,7 @@ function ozh_yourls_antispam_is_blacklisted( $url ) {
 	
 	// Check against each blacklist, exit if blacklisted
 	foreach( $blacklists as $blacklist ) {
-		$domain = $parsed['host'] . '.' . $blacklist;
+		$domain = $parsed['host'] . '.' . $blacklist . '.';
 		$record = dns_get_record( $domain );
 		
 		if( count( $record ) > 0 )
