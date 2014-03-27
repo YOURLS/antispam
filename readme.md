@@ -1,4 +1,4 @@
-Plugin for YOURLS 1.5+: Antispam
+Plugin for YOURLS 1.5++: Antispam
 
 # What for
 
