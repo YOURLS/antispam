@@ -80,7 +80,7 @@ function ozh_yourls_antispam_is_blacklisted( $url ) {
 		$domain = $parsed['host'] . '.' . $blacklist . '.';
 		$record = dns_get_record( $domain );
 		
-		if( count( $record ) > 0 )
+		if( $record && count( $record ) > 0 )
 			return yourls_apply_filter( 'ozh_yourls_antispam_blacklisted', true );
 	}
 	
