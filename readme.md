@@ -7,7 +7,6 @@ This is a __merciless__ __antispam__ plugin that uses the three major blacklists
 URL are checked against the blacklist when short urls are created. They are also randomly checked when someone follows a short
 URL and if the link has been compromised recently, the short URL is created.
 
-
 # How to
 
 * In `/user/plugins`, create a new folder named `antispam`
