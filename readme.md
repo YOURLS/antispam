@@ -16,4 +16,4 @@ URL and if the link has been compromised recently, the short URL is created.
 
 # Disclaimer
 
-Checking against blacklists may or may not work for you, this may depend on the type of spam you are getting and on other factors such as your server IP or your server ISP. It may even result in all domains being blacklisted from your server. Try and see.
+Checking against blacklists may or may not work for you, this may depend on the type of spam you are getting and on other factors such as your server IP, your server ISP, the DNS you are using. It may even result in all domains being blacklisted from your server. Try and see.
