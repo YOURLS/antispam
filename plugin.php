@@ -2,8 +2,8 @@
 /*
 Plugin Name: Anti spam
 Plugin URI: http://yourls.org/
-Description: Absolute anti-spam plugin. Checks URL against major black lists and removes all crap.
-Version: 1.0.2
+Description: Absolute anti-spam plugin. Checks URL against major black lists and removes all crap. Might OR MIGHT NOT work for you. Read the readme.
+Version: 1.0.3
 Author: Ozh
 Author URI: http://ozh.org/
 */
@@ -12,6 +12,13 @@ Author URI: http://ozh.org/
 // Check for spam when someone adds a new link
 yourls_add_filter( 'shunt_add_new_link', 'ozh_yourls_antispam_check_add' );
 function ozh_yourls_antispam_check_add( $false, $url ) {
+    // Sanitize URL and make sure there's a protocol
+    $url = yourls_sanitize_url( $url );
+
+    // only check for 'http(s)'
+    if( !in_array( yourls_get_protocol( $url ), array( 'http://', 'https://' ) ) )
+        return false;
+
 	if ( ozh_yourls_antispam_is_blacklisted( $url ) != false ) {
 		return array(
 			'status' => 'fail',
