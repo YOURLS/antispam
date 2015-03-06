@@ -76,7 +76,7 @@ function ozh_yourls_antispam_is_blacklisted( $url ) {
 	// Major blacklists. There's a filter if you want to manipulate this.
 	$blacklists = yourls_apply_filter( 'ozh_yourls_antispam_list',
 		array(
-			'zen.spamhaus.org',
+			'dbl.spamhaus.org',
 			'multi.surbl.org',
 			'black.uribl.com',
 		)
