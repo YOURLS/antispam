@@ -5,7 +5,7 @@ Plugin for YOURLS 1.5+: Antispam
 This is a __merciless__ __antispam__ plugin that uses the three major blacklists (<a href="http://spamhaus.org">Spamhaus</a>, <a href="http://uribl.com/">URIBL</a> and <a href="http://surbl.org/">SURBL</a>).
 
 URL are checked against the blacklist when short urls are created. They are also randomly checked when someone follows a short
-URL and if the link has been compromised recently, the short URL is created.
+URL and if the link has been compromised recently, the short URL is deleted.
 
 # How to
 
