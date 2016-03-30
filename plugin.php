@@ -17,7 +17,7 @@ function ozh_yourls_antispam_check_add( $false, $url ) {
 
     // only check for 'http(s)'
     if( !in_array( yourls_get_protocol( $url ), array( 'http://', 'https://' ) ) )
-        return false;
+        return $false;
 
 	if ( ozh_yourls_antispam_is_blacklisted( $url ) != false ) {
 		return array(
@@ -29,7 +29,7 @@ function ozh_yourls_antispam_check_add( $false, $url ) {
 	}
 	
 	// All clear, not interrupting the normal flow of events
-	return false;
+	return $false;
 }
 
 
