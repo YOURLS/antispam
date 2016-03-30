@@ -3,7 +3,7 @@
 Plugin Name: Anti spam
 Plugin URI: http://yourls.org/
 Description: Absolute anti-spam plugin. Checks URL against major black lists and removes all crap. Might OR MIGHT NOT work for you. Read the readme.
-Version: 1.0.3
+Version: 1.0.4
 Author: Ozh
 Author URI: http://ozh.org/
 */
