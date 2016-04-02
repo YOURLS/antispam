@@ -19,14 +19,23 @@ function ozh_yourls_antispam_check_add( $false, $url ) {
     if( !in_array( yourls_get_protocol( $url ), array( 'http://', 'https://' ) ) )
         return $false;
 
-	if ( ozh_yourls_antispam_is_blacklisted( $url ) != false ) {
+    if ( ozh_yourls_antispam_is_blacklisted( $url ) === yourls_apply_filter( 'ozh_yourls_antispam_malformed', 'malformed' ) ) {
+		return array(
+			'status' => 'fail',
+			'code'   => 'error:nourl',
+			'message' => yourls__( 'Missing or malformed URL' ),
+			'errorCode' => '400',
+		);
+    }
+	
+    if ( ozh_yourls_antispam_is_blacklisted( $url ) != false ) {
 		return array(
 			'status' => 'fail',
 			'code'   => 'error:spam',
 			'message' => 'This domain is blacklisted',
 			'errorCode' => '403',
 		);
-	}
+    }
 	
 	// All clear, not interrupting the normal flow of events
 	return $false;
