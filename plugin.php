@@ -87,7 +87,6 @@ function ozh_yourls_antispam_is_blacklisted( $url ) {
 		array(
 			'dbl.spamhaus.org',
 			'multi.surbl.org',
-			'black.uribl.com',
 		)
 	);
 	
