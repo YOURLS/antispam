@@ -1,4 +1,4 @@
-# Plugin for YOURLS 1.5+: Antispam
+# Plugin for YOURLS 1.5+: Antispam [![Listed in Awesome YOURLS!](https://img.shields.io/badge/Awesome-YOURLS-C5A3BE)](https://github.com/YOURLS/awesome-yourls/)
 
 ## What for
 
