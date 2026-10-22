@@ -61,9 +61,12 @@ function ozh_yourls_antispam_check_redirect( $url, $keyword = false ) {
 
 	if( $chances == mt_rand( 1, $chances ) ) {
 		if( ozh_yourls_antispam_is_blacklisted( $url ) != false ) {
-			// Delete link & die
-			yourls_delete_link_by_keyword( $keyword );
-			yourls_die( 'This domain has been blacklisted. This short URL has been deleted from our record.', 'Domain blacklisted', '403' );
+			// Delete link & die. Return false from this filter to only block the redirect and keep the link.
+			if( yourls_apply_filter( 'ozh_yourls_antispam_delete_on_redirect', true, $keyword, $url ) ) {
+				yourls_delete_link_by_keyword( $keyword );
+				yourls_die( 'This domain has been blacklisted. This short URL has been deleted from our record.', 'Domain blacklisted', '403' );
+			}
+			yourls_die( 'This domain has been blacklisted.', 'Domain blacklisted', '403' );
 		}
 	}
 
