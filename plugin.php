@@ -88,19 +88,54 @@ function ozh_yourls_antispam_is_blacklisted( $url ) {
             'zen.spamhaus.org',
             'multi.surbl.org',
             'bl.spamcop.net',
-            'combined.abuse.ch',
-            'dnsbl.sorbs.net',		)
+		)
 	);
 
 	// Check against each blacklist, exit if blacklisted
 	foreach( $blacklists as $blacklist ) {
-		$domain = $parsed['host'] . '.' . $blacklist . '.';
-		$record = @dns_get_record( $domain );
+		// Skip lists that are dead or list everything, so they can't flag (and delete) every link
+		if( !ozh_yourls_antispam_list_is_sane( $blacklist ) )
+			continue;
 
-		if( $record && count( $record ) > 0 )
+		if( ozh_yourls_antispam_dns_listed( $parsed['host'] . '.' . $blacklist . '.' ) )
 			return yourls_apply_filter( 'ozh_yourls_antispam_blacklisted', true );
 	}
 
 	// All clear, probably not spam
 	return yourls_apply_filter( 'ozh_yourls_antispam_clean', false );
+}
+
+
+// Does this DNSBL name have a "listed" answer? Only an A record in 127.0.0.0/8 counts.
+// Any other record (eg a wildcard TXT on a defunct list, or the HINFO "RFC8482" stub some resolvers return to ANY
+// queries) is not a listing, and neither are the "query refused" codes: 127.0.0.1 (SURBL, URIBL) and
+// 127.255.255.0/24 (Spamhaus: public resolver, rate limit, bad query).
+function ozh_yourls_antispam_dns_listed( $name ) {
+	$records = @dns_get_record( $name, DNS_A );
+	if( !$records )
+		return false;
+
+	foreach( $records as $record ) {
+		$ip = isset( $record['ip'] ) ? $record['ip'] : '';
+		if( strpos( $ip, '127.' ) !== 0 || $ip == '127.0.0.1' || strpos( $ip, '127.255.255.' ) === 0 )
+			continue;
+		return true;
+	}
+
+	return false;
+}
+
+
+// Is this list answering sanely? RFC 5782 says a DNSBL must never list "invalid", so a list that does is
+// broken (shut down lists sometimes start listing the whole world) and must be ignored. Checked once per request.
+function ozh_yourls_antispam_list_is_sane( $blacklist ) {
+	static $sane = array();
+
+	if( !isset( $sane[ $blacklist ] ) ) {
+		$sane[ $blacklist ] = !ozh_yourls_antispam_dns_listed( 'invalid.' . $blacklist . '.' );
+		if( !$sane[ $blacklist ] && function_exists( 'yourls_debug_log' ) )
+			yourls_debug_log( "Antispam: $blacklist lists everything (even 'invalid'), skipping it" );
+	}
+
+	return $sane[ $blacklist ];
 }

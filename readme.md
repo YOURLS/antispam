@@ -8,7 +8,10 @@ This is an antispam plugin that uses major DNS blacklists to detect spam, at lin
 - They are also randomly checked when someone follows a short URL and if the link has been compromised recently, the 
 short URL is deleted.
 
-DNS backlists used: `zen.spamhaus.org`, `multi.surbl.org`, `bl.spamcop.net`, `combined.abuse.ch`, `dnsbl.sorbs.net`.
+DNS backlists used: `zen.spamhaus.org`, `multi.surbl.org`, `bl.spamcop.net`. Use the `ozh_yourls_antispam_list` filter to
+change them. Only an A record in `127.0.0.0/8` counts as listed (not the "query refused" answers `127.0.0.1` and
+`127.255.255.x`), and a list that also lists the name `invalid` (RFC 5782) is treated as broken and skipped, so a dead or
+wildcarding list can't flag every link.
 
 ## How to
 
