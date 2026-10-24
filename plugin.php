@@ -3,7 +3,7 @@
 Plugin Name: Anti spam
 Plugin URI: http://yourls.org/
 Description: Checks URL against DNS blacklists. Might OR MIGHT NOT work for you. Read the readme.
-Version: 1.1
+Version: 1.2
 Author: Ozh
 Author URI: http://ozh.org/
 */
